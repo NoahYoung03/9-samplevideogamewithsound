@@ -30,7 +30,7 @@ local scene = composer.newScene( sceneName )
 
 -- The local variables for this scene
 local bkg_image
-
+local backButton
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image
-    bkg_image = display.newImageRect("Images/level1_screen.png", display.contentWidth, display.contentHeight)
+    bkg_image = display.newImageRect("Images/Level1(Noah Young).png", display.contentWidth, display.contentHeight)
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -83,16 +83,40 @@ function scene:show( event )
     end
 
 end --function scene:show( event )
+-----------------------------------------------------------------------------------------
+-- Creating Transitioning Function back to main menu
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "zoomOutInFadeRotate", time = 500})
+end
+-----------------------------------------------------------------------------------------
+ -- Creating Back Button
+    backButton = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth*1/8,
+        y = display.contentHeight*15/16,
+
+        -- Setting Dimensions
+        -- width = 1000,
+        -- height = 106,
+
+        -- Setting Visual Properties
+        defaultFile = "Images/Back Button Unpressed.png",
+        overFile = "Images/Back Button Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = BackTransition
+
+    } )
 
 -----------------------------------------------------------------------------------------
-
 -- The function called when the scene is issued to leave the screen
 function scene:hide( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
     local phase = event.phase
-
+     
     -----------------------------------------------------------------------------------------
 
     if ( phase == "will" ) then
